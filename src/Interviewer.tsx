@@ -344,7 +344,7 @@ const blendData: BlendDatum[] = [
 
 
 export function Interviewer({ canAnimate, animationDuration }: { canAnimate: boolean; animationDuration: number }) {
-  const gltf = useGLTF('/model4.glb');
+  const gltf = useGLTF('https://mockepanel-model.s3.ap-south-1.amazonaws.com/model4.glb');
   const [started, setStarted] = React.useState(false);
 
   // 🔥 Store mesh & morph refs at component level
