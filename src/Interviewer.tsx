@@ -566,14 +566,81 @@ console.log("Response from /send-msg:", data);
 
  return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      {!started && <button onClick={handleStart}>Start</button>}
-      <button onClick={sendMsgTollm}>Send</button>
       <Canvas camera={{ position: [0, 1.2, 2.0], fov: 25 }}>
         <ambientLight intensity={0.7} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <primitive object={gltf.scene} scale={1.5} position={[0, -1.2, 0]} />
         <OrbitControls target={[0, 1, 0]} minDistance={1.5} maxDistance={3.0} enablePan={false} />
       </Canvas>
+      
+      <div style={{
+        position: 'absolute',
+        bottom: '20px',
+        right: '20px',
+        display: 'flex',
+        gap: '12px',
+        zIndex: 100,
+        flexDirection: 'column'
+      }}>
+        {!started && (
+          <button 
+            onClick={handleStart} 
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#163d73';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(31, 83, 151, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#1f5397';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            style={{
+              padding: '12px 24px',
+              fontSize: '16px',
+              fontWeight: '700',
+              backgroundColor: '#1f5397',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 2px 8px rgba(31, 83, 151, 0.3)',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            🎤 Start
+          </button>
+        )}
+        <button 
+          onClick={sendMsgTollm}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#163d73';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(31, 83, 151, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#1f5397';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+          style={{
+            padding: '12px 24px',
+            fontSize: '16px',
+            fontWeight: '700',
+            backgroundColor: '#1f5397',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 2px 8px rgba(31, 83, 151, 0.3)',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          📤 Send
+        </button>
+      </div>
     </div>
   );
 }

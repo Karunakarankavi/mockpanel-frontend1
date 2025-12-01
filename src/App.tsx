@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
 import { Interviewer } from './Interviewer';
+import { Header, Footer } from './HeaderFooter';
+import { Sidebar } from './Sidebar';
+import { AnalysisPage } from './pages/AnalysisPage';
+import { StudyMaterialPage } from './pages/StudyMaterialPage';
+import { ATSPage } from './pages/ATSPage';
+import { ResumeBuilderPage } from './pages/ResumeBuilderPage';
+import { JobsPage } from './pages/JobsPage';
 import './App.css';
 import { ResumeMatchPage } from './ResumeMatchPage';
 
@@ -9,6 +16,7 @@ function App() {
   const [started, setStarted] = React.useState(false);
   const [canAnimate, setCanAnimate] = React.useState(false);
   const [audioDuration, setAudioDuration] = React.useState(3.0); // Default duration
+  const [currentPage, setCurrentPage] = React.useState<string>('mockinterview');
 
   // Get audio duration when loaded
   React.useEffect(() => {
@@ -23,6 +31,37 @@ function App() {
     };
   }, []);
 
+  const handleSidebarClick = (pageId: string) => {
+    setCurrentPage(pageId);
+    // Reset animation state when switching pages
+    if (pageId !== 'mockinterview') {
+      setCanAnimate(false);
+    }
+  };
+
+  const renderContent = () => {
+    switch (currentPage) {
+      case 'mockinterview':
+        return canAnimate ? (
+          <Interviewer canAnimate={canAnimate} animationDuration={audioDuration} />
+        ) : (
+          <ResumeMatchPage onSuccess={() => setCanAnimate(true)} />
+        );
+      case 'analysis':
+        return <AnalysisPage />;
+      case 'studymaterial':
+        return <StudyMaterialPage />;
+      case 'ats':
+        return <ATSPage />;
+      case 'resumebuilder':
+        return <ResumeBuilderPage />;
+      case 'jobs':
+        return <JobsPage />;
+      default:
+        return <ResumeMatchPage onSuccess={() => setCanAnimate(true)} />;
+    }
+  };
+
   
 
 
@@ -34,19 +73,25 @@ function App() {
         height: '100vh',
         margin: 0,
         padding: 0,
+        display: 'flex',
+        flexDirection: 'column',
         backgroundImage: 'url(/bg4.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
+      <Header />
       
+      <div className="app-layout">
+        <Sidebar onItemClick={handleSidebarClick} />
+        
+        <main className="app-main">
+          {renderContent()}
+        </main>
+      </div>
       
-      {canAnimate ? (
-        <Interviewer canAnimate={canAnimate} animationDuration={audioDuration} />
-      ) : (
-        <ResumeMatchPage onSuccess={() => setCanAnimate(true)} />
-      )}
+      <Footer />
     </div>
   );
 }

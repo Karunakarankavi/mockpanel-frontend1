@@ -84,16 +84,11 @@ export function ResumeMatchPage({ onSuccess }: ResumeMatchPageProps) {
 
   return (
     <div className="resume-match-page">
-      {/* Header */}
-      <header className="header">
-        <div className="mock-panel">MockPanel</div>
-      </header>
-
       {/* Main Body */}
       <main className="main-content">
         <div className="form-container">
           <form onSubmit={handleSubmit} className="resume-form">
-            <h2>Job Matching Form</h2>
+            <h2>Submit resume for MockInterview</h2>
 
             {/* User ID Field */}
             <div className="form-group">
@@ -175,14 +170,6 @@ export function ResumeMatchPage({ onSuccess }: ResumeMatchPageProps) {
           </form>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-content">
-          <p>&copy; 2025 Resume Matcher. All rights reserved.</p>
-          <p>Contact us: support@resumematcher.com</p>
-        </div>
-      </footer>
     </div>
   );
 }
