@@ -7,6 +7,7 @@ import { StudyMaterialPage } from './pages/StudyMaterialPage';
 import { ATSPage } from './pages/ATSPage';
 import { ResumeBuilderPage } from './pages/ResumeBuilderPage';
 import { JobsPage } from './pages/JobsPage';
+import { LoginPage } from './pages/LoginPage';
 import './App.css';
 import { ResumeMatchPage } from './ResumeMatchPage';
 
@@ -16,7 +17,8 @@ function App() {
   const [started, setStarted] = React.useState(false);
   const [canAnimate, setCanAnimate] = React.useState(false);
   const [audioDuration, setAudioDuration] = React.useState(3.0); // Default duration
-  const [currentPage, setCurrentPage] = React.useState<string>('mockinterview');
+  const [currentPage, setCurrentPage] = React.useState<string>('login');
+  const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
 
   // Get audio duration when loaded
   React.useEffect(() => {
@@ -39,6 +41,11 @@ function App() {
     }
   };
 
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    setCurrentPage('mockinterview');
+  };
+
   const renderContent = () => {
     switch (currentPage) {
       case 'mockinterview':
@@ -57,6 +64,8 @@ function App() {
         return <ResumeBuilderPage />;
       case 'jobs':
         return <JobsPage />;
+      case 'login':
+        return <LoginPage onLogin={handleLogin} />;
       default:
         return <ResumeMatchPage onSuccess={() => setCanAnimate(true)} />;
     }
@@ -84,10 +93,16 @@ function App() {
       <Header />
       
       <div className="app-layout">
-        <Sidebar onItemClick={handleSidebarClick} />
-        
+        {isAuthenticated && (
+          <Sidebar onItemClick={handleSidebarClick} activeItem={currentPage} />
+        )}
+
         <main className="app-main">
-          {renderContent()}
+          {(!isAuthenticated && currentPage !== 'login') ? (
+            <LoginPage onLogin={handleLogin} />
+          ) : (
+            renderContent()
+          )}
         </main>
       </div>
       

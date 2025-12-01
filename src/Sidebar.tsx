@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 
 type SidebarItem = {
@@ -18,10 +18,15 @@ const sidebarItems: SidebarItem[] = [
 
 type SidebarProps = {
   onItemClick?: (itemId: string) => void;
+  activeItem?: string;
 };
 
-export function Sidebar({ onItemClick }: SidebarProps) {
-  const [activeItem, setActiveItem] = useState<string>('mockinterview');
+export function Sidebar({ onItemClick, activeItem: externalActive }: SidebarProps) {
+  const [activeItem, setActiveItem] = useState<string>(externalActive || 'mockinterview');
+
+  useEffect(() => {
+    if (externalActive) setActiveItem(externalActive);
+  }, [externalActive]);
 
   const handleItemClick = (itemId: string) => {
     setActiveItem(itemId);
