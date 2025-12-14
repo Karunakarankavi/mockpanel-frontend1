@@ -1,0 +1,16 @@
+/* Global color variables */
+:root {
+  --color-primary: #5B2D9A; /* Sapphire Purple */
+  --color-primary-rgb: 91, 45, 154;
+  --color-secondary: #071428; /* Deep Navy */
+  --color-secondary-rgb: 7, 20, 40;
+  --text-on-primary: #ffffff;
+  --text-on-secondary: #ffffff;
+  --text-default: var(--color-secondary);
+}
+
+/* Utility classes */
+.bg-primary { background-color: var(--color-primary) !important; }
+.bg-secondary { background-color: var(--color-secondary) !important; }
+.text-primary { color: var(--color-primary) !important; }
+.text-secondary { color: var(--color-secondary) !important; }

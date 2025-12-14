@@ -405,7 +405,7 @@ export function Interviewer({ canAnimate, animationDuration }: { canAnimate: boo
   source.connect(processor);
   processor.connect(audioContext.destination);
 
-  const serverSocket = new WebSocket('ws://localhost:8000');
+  const serverSocket = new WebSocket('ws://localhost:8001');
 
   serverSocket.onopen = () => {
     console.log('Connected to server WebSocket');
@@ -507,7 +507,7 @@ export function Interviewer({ canAnimate, animationDuration }: { canAnimate: boo
 const bodyData = { userId };
 
 // Send POST request with JSON payload
-const res = await fetch("http://localhost:5001/send-msg", {
+const res = await fetch("http://localhost:5001/api/v1/send-msg", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -551,7 +551,7 @@ console.log("Response from /send-msg:", data);
         cleanup && cleanup();
         console.log("reconnecting...");
         
-        fetch("http://localhost:5001/reconnect", { method: "POST" })
+        fetch("http://localhost:5001/api/v1/reconnect", { method: "POST" })
           .then(() => console.log("🔄 Reconnect called"))
           .catch(err => console.error("❌ Reconnect failed", err));
       }, durationMs);
@@ -644,5 +644,4 @@ console.log("Response from /send-msg:", data);
     </div>
   );
 }
-
 

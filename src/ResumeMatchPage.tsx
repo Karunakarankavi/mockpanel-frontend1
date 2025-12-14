@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ResumeMatchPage.css';
+import ENDPOINTS from './config/endpoints';
 
 type ResumeMatchPageProps = {
   onSuccess?: () => void;
@@ -48,7 +49,7 @@ export function ResumeMatchPage({ onSuccess }: ResumeMatchPageProps) {
     formDataToSend.append('role', formData.jobRole);
     formDataToSend.append('exp', formData.experience);
 
-    console.log('Submitting form to http://localhost:8085/MpSetTopicsFromResume');
+    console.log('Submitting form to', ENDPOINTS.RESUME_TOPICS);
     console.log('Form data:', {
       resume: formData.resume.name,
       jobDescription: formData.jobDescription,
@@ -57,7 +58,7 @@ export function ResumeMatchPage({ onSuccess }: ResumeMatchPageProps) {
       exp: formData.experience
     });
 
-    fetch('http://localhost:8085/MpSetTopicsFromResume', {
+    fetch(ENDPOINTS.RESUME_TOPICS, {
       method: 'POST',
       body: formDataToSend,
       credentials: 'include'
